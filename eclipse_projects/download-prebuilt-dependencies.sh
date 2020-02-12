@@ -9,7 +9,7 @@ wget -c https://github.com/iiordanov/remote-desktop-clients/releases/download/de
 
 mkdir -p remoteClientLib/jni/libs/deps/FreeRDP/
 
-tar xf remote-desktop-clients-libs-${DEPVER}.tar.gz
+tar xPf remote-desktop-clients-libs-${DEPVER}.tar.gz
 
 echo "Done downloading and extracting dependencies."
 

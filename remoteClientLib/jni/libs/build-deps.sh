@@ -335,7 +335,7 @@ build_one() {
         make install
         ;;
     govirt)
-        ./autogen.sh || /bin/true
+        ./autogen.sh || $TRUE
         patch -p0 < "${basedir}/libgovirt-status.patch"
         patch -p0 < "${basedir}/libgovirt-tests.patch"
         do_configure \
@@ -377,8 +377,8 @@ build_one() {
                 --disable-doc \
                 --disable-tests \
                 --with-included-unistring
-        make $parallel || /bin/true
-        make install || /bin/true
+        make $parallel || $TRUE
+        make install || $TRUE
 
         # Build again over top of gstreamer's gnutls to upgrade it
         do_configure install_in_gst \
@@ -387,8 +387,8 @@ build_one() {
                 --disable-doc \
                 --disable-tests \
                 --with-included-unistring
-        make $parallel || /bin/true
-        make install || /bin/true
+        make $parallel || $TRUE
+        make install || $TRUE
         ;;
     esac
 
@@ -463,7 +463,7 @@ setup() {
     toolchain="$(pwd)/deps/${abi}/toolchain"
     gst="$(pwd)/deps/${abi}/gstreamer"
     mkdir -p "${root}"
-    [ -e ${gst} ] && mkdir -p ${gst}/etc/ssl/certs/ && cp /etc/ssl/certs/ca-certificates.crt ${gst}/etc/ssl/certs/ || /bin/true
+    [ -e ${gst} ] && mkdir -p ${gst}/etc/ssl/certs/ && cp /etc/ssl/certs/ca-certificates.crt ${gst}/etc/ssl/certs/ || $TRUE
 
     fetch configguess
     build_system=$(sh tar/config.guess)
