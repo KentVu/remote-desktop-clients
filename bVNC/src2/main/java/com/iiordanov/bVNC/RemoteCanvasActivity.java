@@ -83,6 +83,7 @@ import com.iiordanov.android.bc.BCFactory;
 import com.iiordanov.bVNC.dialogs.EnterTextDialog;
 import com.iiordanov.bVNC.dialogs.MetaKeyDialog;
 import com.iiordanov.bVNC.input.InputHandler;
+import com.iiordanov.bVNC.input.InputHandlerDirectNoPan;
 import com.iiordanov.bVNC.input.InputHandlerDirectDragPan;
 import com.iiordanov.bVNC.input.InputHandlerDirectSwipePan;
 import com.iiordanov.bVNC.input.InputHandlerSingleHanded;
@@ -91,13 +92,6 @@ import com.iiordanov.bVNC.input.Panner;
 import com.iiordanov.bVNC.input.RemoteKeyboard;
 import com.iiordanov.bVNC.input.RemotePointer;
 import com.undatech.opaque.util.OnTouchViewMover;
-import com.iiordanov.bVNC.*;
-import com.iiordanov.freebVNC.*;
-import com.iiordanov.aRDP.*;
-import com.iiordanov.freeaRDP.*;
-import com.iiordanov.aSPICE.*;
-import com.iiordanov.freeaSPICE.*;
-import com.iiordanov.CustomClientPackage.*;
 
 public class RemoteCanvasActivity extends AppCompatActivity implements OnKeyListener {
     
@@ -117,6 +111,7 @@ public class RemoteCanvasActivity extends AppCompatActivity implements OnKeyList
     static final int[] inputModeIds = { R.id.itemInputTouchpad,
                                                 R.id.itemInputTouchPanZoomMouse,
                                                 R.id.itemInputDragPanZoomMouse,
+                                                R.id.itemInputDragNoPan,
                                                 R.id.itemInputSingleHanded };
     private static final int scalingModeIds[] = { R.id.itemZoomable, R.id.itemFitToScreen,
                                                   R.id.itemOneToOne};
@@ -126,6 +121,7 @@ public class RemoteCanvasActivity extends AppCompatActivity implements OnKeyList
         Map<Integer, String> temp = new HashMap<>();
         temp.put(R.id.itemInputTouchpad, InputHandlerTouchpad.ID);
         temp.put(R.id.itemInputDragPanZoomMouse, InputHandlerDirectDragPan.ID);
+        temp.put(R.id.itemInputDragNoPan, InputHandlerDirectNoPan.ID);
         temp.put(R.id.itemInputTouchPanZoomMouse, InputHandlerDirectSwipePan.ID);
         temp.put(R.id.itemInputSingleHanded, InputHandlerSingleHanded.ID);
         inputModeMap = Collections.unmodifiableMap(temp);
@@ -1081,6 +1077,9 @@ public class RemoteCanvasActivity extends AppCompatActivity implements OnKeyList
                         break;
                     case R.id.itemInputDragPanZoomMouse:
                         inputModeHandlers[i] = new InputHandlerDirectDragPan(this, canvas, pointer, myVibrator);
+                        break;
+                    case R.id.itemInputDragNoPan:
+                        inputModeHandlers[i] = new InputHandlerDirectNoPan(this, canvas, pointer, myVibrator);
                         break;
                     case R.id.itemInputTouchpad:
                         inputModeHandlers[i] = new InputHandlerTouchpad(this, canvas, pointer, myVibrator);
